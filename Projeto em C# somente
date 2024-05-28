@@ -1,0 +1,57 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Estado inicial
+        string estadoAtual = "L0";
+
+        Console.WriteLine("Bem-vindo ao jogo do carrinho!");
+
+        // Loop principal do jogo
+        while (true)
+        {
+            Console.WriteLine($"Você está no estado {estadoAtual}. Escolha um número (0, 1 ou 2):");
+            int entrada = int.Parse(Console.ReadLine());
+
+              if ( entrada >= 3 ){
+                 Console.WriteLine($"Entrada inválida. Por favor, escolha um número entre 0, 1 ou 2.");
+                 continue;
+                }
+// Transições de estado com base na entrada
+            switch (estadoAtual)
+            {
+
+                case "L0":
+                    estadoAtual = (entrada == 1) ? "L1" : (entrada == 2) ? "L2" : "L3";
+                    break;
+                case "L1":
+                    estadoAtual = (entrada == 1) ? "L4" : (entrada == 0) ? "L0" : "L2";
+                    break;
+                case "L2":
+                    Console.WriteLine("Parabéns, você venceu o jogo ao chegar no estado L2!");
+                    return; // Encerra o jogo
+                case "L3":
+                    estadoAtual = (entrada == 0) ? "L6" : (entrada == 1) ? "L0" : "L2";
+                    break;
+                case "L4":
+                    estadoAtual = (entrada == 0) ? "L1" : (entrada == 1) ? "LF" : "L5";
+                    break;
+                case "L5":
+                    Console.WriteLine("Parabéns, você venceu o jogo ao chegar no estado L5!");
+                    return; // Encerra o jogo
+                case "L6":
+                    estadoAtual = (entrada == 0) ? "LF" : (entrada == 1) ? "L3" : "L5";
+                    break;
+                case "LF":
+                    Console.WriteLine("Você perdeu o jogo ao chegar no estado LF.");
+                    return; // Encerra o jogo
+                default:
+                    Console.WriteLine("Estado inválido. Reiniciando o jogo.");
+                    estadoAtual = "L0";
+                    break;
+            }
+        }
+    }
+}
